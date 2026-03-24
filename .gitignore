@@ -1,0 +1,7 @@
+_old/
+outputs/
+env.sh
+*.jpeg
+*.jpg
+*.png
+*.gif
