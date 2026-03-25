@@ -3,7 +3,6 @@ import os
 import sys
 from datetime import datetime
 from diffusers import ZImagePipeline, ZImageTransformer2DModel, BitsAndBytesConfig
-import random
 
 # 0. RTX 5070 Speed Boosts
 torch.backends.cuda.matmul.allow_tf32 = True
@@ -58,14 +57,15 @@ pipe.enable_model_cpu_offload()
 pipe.transformer.set_attention_backend("native")
 
 if hasattr(pipe, "vae"):
-    pipe.vae.enable_tiling() # We keep this to prevent the final image save from crashing
+    pipe.vae.enable_tiling()
+    pipe.vae.enable_slicing()
 
 # 4. Generate
 timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 save_path = os.path.join(output_dir, f"z-image-turbo-{timestamp}.png")
 
 print("🚀 Generating image at lightspeed...")
-seed = random.randint(0, 4294967295)
+seed = torch.seed()
 generator = torch.Generator(device).manual_seed(seed)
 with torch.inference_mode():
     image = pipe(

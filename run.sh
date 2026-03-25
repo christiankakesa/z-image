@@ -28,4 +28,4 @@ fi
 source "$MY_PY_ENV_DIR/bin/activate"
 
 # Run the python script using the absolute path
-exec python3 "$SCRIPT_DIR/z-image-4.py" "$@"
+exec python3 "$SCRIPT_DIR/z-image-2.py" "$@"

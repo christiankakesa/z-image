@@ -4,7 +4,6 @@ import sys
 from datetime import datetime
 from diffusers import DiffusionPipeline, PipelineQuantizationConfig
 from compel import CompelForSDXL
-import random
 
 # 0. RTX 5070 Speed Boosts
 torch.backends.cuda.matmul.allow_tf32 = True
@@ -79,7 +78,7 @@ timestamp = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
 save_path = os.path.join(output_dir, f"z-image-stable-diffusion-xl-{timestamp}.png")
 
 print("🚀 Generating image at lightspeed...")
-seed = random.randint(0, 4294967295)
+seed = torch.seed()
 generator = torch.Generator(device).manual_seed(seed)
 
 n_steps = 20

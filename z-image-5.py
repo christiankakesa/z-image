@@ -71,7 +71,7 @@ output = pipeline(
     negative_prompt=negative_prompt,
     true_cfg_scale=3.5,
     num_inference_steps=4,          # 4 for Lightning, 8-12 otherwise
-    generator=torch.Generator("cuda").manual_seed(42),
+    generator=torch.Generator("cuda").manual_seed(torch.seed()),
     height=768,
     width=768,
 ).images[0]
